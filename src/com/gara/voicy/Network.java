@@ -9,24 +9,35 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class Network 
+public class Network extends AsyncTask<String, Void, String> 
 {
 	public static String serverAddress = "";
+	Context context;
 	
-	public static void sendGet(Context context, String command)
+	public Network(Context context)
 	{
+		this.context = context;
+	}
+	
+	@Override
+	protected String doInBackground(String... params) {
+		// TODO Auto-generated method stub
+		
+		StringBuffer response = new StringBuffer();;
+		
 		if ( serverAddress == "")
 		{
 			Toast.makeText(context, "ERROR : please set server IP in settings", Toast.LENGTH_LONG).show();
-			return;
+			return null;
 		}
 		try 
 		{
 			String url = "http://" + serverAddress + "/" + Constants.SERVER_FILE + 
-					"?action=" + command;
+					"?action=" + params[0];
 			Log.d("url", url);
 			URL obj;
 			obj = new URL(url);
@@ -42,8 +53,7 @@ public class Network
 			BufferedReader in = new BufferedReader(
 			        new InputStreamReader(con.getInputStream()));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
-	 
+			
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
@@ -54,16 +64,14 @@ public class Network
 			Log.d("reader", response.toString());
 		
 		} catch (MalformedURLException e) {
-			Toast.makeText(context, "ERROR : server address malformed", Toast.LENGTH_LONG).show();
+			
 		} catch (IOException e) {
 			Toast.makeText(context, "ERROR : cannot reach server", Toast.LENGTH_LONG).show();
 		}
-		catch(RuntimeException e)
-		{
-			e.printStackTrace();
-		}
- 
+		
+		return response.toString();
 	}
+	
 	
 	public void testURL() throws Exception {
 	    String strUrl = "http://stackoverflow.com/about";
@@ -80,6 +88,9 @@ public class Network
 	        throw e;
 	    }
 	}
+
+
+
 	
 
 }

@@ -42,7 +42,8 @@ public class MainActivity extends ActionBarActivity
         btnGetCommands = (Button) findViewById(R.id.btnGetCommands);
         btnGetCommands.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
-	        	Network.sendGet(getApplicationContext(), "GET_COMMANDS");
+	        	Network net = new Network(getApplicationContext());
+	        	net.execute("GET_COMMANDS");
 	        }
 	    });
         
@@ -50,6 +51,7 @@ public class MainActivity extends ActionBarActivity
         		Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
         
     	}
+    	
     	catch(RuntimeException e)
     	{
     		e.printStackTrace();
