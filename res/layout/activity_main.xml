@@ -9,8 +9,27 @@
     tools:context="com.gara.voicy.MainActivity" >
 
     <TextView
+        android:id="@+id/textServerIP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <Button
+        android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textServerIP"
+        android:layout_marginTop="44dp"
+        android:layout_toRightOf="@+id/textServerIP"
+        android:text="@string/record" />
+
+    <Button
+        android:id="@+id/btnGetSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRecord"
+        android:layout_marginTop="49dp"
+        android:layout_toRightOf="@+id/textServerIP"
+        android:text="@string/get_settings" />
 
 </RelativeLayout>

@@ -4,5 +4,8 @@
     <string name="app_name">Voicy</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+	<string name="server_ip">Server IP : </string>
+	<string name="record">Record !</string>
+	<string name="ok">OK</string>
+	<string name="get_settings">Get settings</string>
 </resources>

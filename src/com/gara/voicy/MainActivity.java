@@ -4,21 +4,46 @@ import java.util.ArrayList;
 
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity 
+{
+	Button btnRecord, btnGetSettings;
+	Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+        
+        
+        btnRecord = (Button) findViewById(R.id.btnRecord);
+        btnRecord.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	SpeechRecognitionHelper.run(activity);
+	        }
+	    });
+        
+        btnGetSettings = (Button) findViewById(R.id.btnGetSettings);
+        btnGetSettings.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
 
+	        	String[] settings  = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
+	        	Toast.makeText(activity, "IP server : " + settings[0], Toast.LENGTH_LONG).show();
+	        }
+	    });
+        
+        
+        
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+            Util.switchActivity(this, getApplicationContext(), Settings.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -42,20 +67,21 @@ public class MainActivity extends ActionBarActivity {
  // Activity Results handler
     public void onActivityResult(int requestCode, int resultCode, Intent data) 
     {
-        // if it’s speech recognition results
-        // and process finished ok
+        // if it’s speech recognition results and process finished ok
         if (requestCode == Constants.VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
 
             // receiving a result in string array
             // there can be some strings because sometimes speech recognizing inaccurate
             // more relevant results in the beginning of the list
-            ArrayList matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             // in “matches” array we holding a results... let’s show the most relevant
-            if (matches.size() > 0) Toast.makeText(this, matches.get(0).toString(), Toast.LENGTH_LONG).show();
+            if (matches.size() > 0)
+            	Toast.makeText(this, matches.get(0).toString(), Toast.LENGTH_LONG).show();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+    
     
 }

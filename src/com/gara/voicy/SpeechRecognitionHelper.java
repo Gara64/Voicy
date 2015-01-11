@@ -1,6 +1,5 @@
 package com.gara.voicy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -9,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.speech.RecognizerIntent;
 import android.widget.Toast;
@@ -51,7 +51,7 @@ public class SpeechRecognitionHelper {
             // getting an instance of package manager
             PackageManager pm = callerActivity.getPackageManager();
             // a list of activities, which can process speech recognition Intent
-            List activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+            List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
 
             if (activities.size() != 0) {    // if list not empty
                 return true;                // then we can recognize the speech
@@ -73,7 +73,7 @@ public class SpeechRecognitionHelper {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
         // giving additional parameters:
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Select an application");    // user hint
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parlez maintenant");    // user hint
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);    // setting recognition model, optimized for short phrases – search queries
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);    
         // quantity of results we want to receive
