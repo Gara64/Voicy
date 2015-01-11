@@ -24,12 +24,12 @@
         android:text="@string/record" />
 
     <Button
-        android:id="@+id/btnGetSettings"
+        android:id="@+id/btnGetCommands"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnRecord"
         android:layout_marginTop="49dp"
         android:layout_toRightOf="@+id/textServerIP"
-        android:text="@string/get_settings" />
+        android:text="@string/get_commands" />
 
 </RelativeLayout>

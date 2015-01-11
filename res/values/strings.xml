@@ -8,4 +8,5 @@
 	<string name="record">Record !</string>
 	<string name="ok">OK</string>
 	<string name="get_settings">Get settings</string>
+	<string name="get_commands">Get commands</string>
 </resources>

@@ -16,14 +16,21 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity 
 {
-	Button btnRecord, btnGetSettings;
+	Button btnRecord, btnGetCommands;
 	Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	try
+    	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        String[] settings = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
+        if( settings.length == 0 )
+        	Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
+        else
+        	Network.serverAddress = settings[0];
         
         btnRecord = (Button) findViewById(R.id.btnRecord);
         btnRecord.setOnClickListener(new View.OnClickListener() {
@@ -32,16 +39,21 @@ public class MainActivity extends ActionBarActivity
 	        }
 	    });
         
-        btnGetSettings = (Button) findViewById(R.id.btnGetSettings);
-        btnGetSettings.setOnClickListener(new View.OnClickListener() {
+        btnGetCommands = (Button) findViewById(R.id.btnGetCommands);
+        btnGetCommands.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
-
-	        	String[] settings  = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
-	        	Toast.makeText(activity, "IP server : " + settings[0], Toast.LENGTH_LONG).show();
+	        	Network.sendGet(getApplicationContext(), "GET_COMMANDS");
 	        }
 	    });
         
+        if(!Util.checkInternet(getApplicationContext()))
+        		Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
         
+    	}
+    	catch(RuntimeException e)
+    	{
+    		e.printStackTrace();
+    	}
         
     }
 
@@ -59,7 +71,7 @@ public class MainActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Util.switchActivity(this, getApplicationContext(), Settings.class);
+            Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
