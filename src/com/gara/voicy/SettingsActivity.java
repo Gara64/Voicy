@@ -15,7 +15,8 @@ public class SettingsActivity extends Activity
 	Activity activity;
 	String ip;
 	
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         
@@ -23,6 +24,10 @@ public class SettingsActivity extends Activity
         
         eText = (EditText) findViewById(R.id.editTextIP);
         okBtn = (Button) findViewById(R.id.btnSettingsOk);
+        
+        if(Network.serverAddress != "")
+        	eText.setText(Network.serverAddress);
+        
         okBtn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 	        	JsonHelper.writeSettings(extractSettings(), getApplicationContext(), Constants.JSON_FILE);

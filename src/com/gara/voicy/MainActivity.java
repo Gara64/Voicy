@@ -1,6 +1,7 @@
 package com.gara.voicy;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
@@ -26,11 +27,9 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        String[] settings = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
-        if( settings.length == 0 )
-        	Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
-        else
-        	Network.serverAddress = settings[0];
+        
+        
+        
         
         btnRecord = (Button) findViewById(R.id.btnRecord);
         btnRecord.setOnClickListener(new View.OnClickListener() {
@@ -42,10 +41,25 @@ public class MainActivity extends ActionBarActivity
         btnGetCommands = (Button) findViewById(R.id.btnGetCommands);
         btnGetCommands.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
-	        	Network net = new Network(getApplicationContext());
-	        	net.execute("GET_COMMANDS");
+		        Commands.showCommands(activity);	 
+		      
 	        }
 	    });
+        
+        //read settings file
+        String[] settings = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
+        if( settings.length == 0 )
+        	Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
+        else
+        	Network.serverAddress = settings[0];
+        
+        
+        //get the commands
+	    Network net = new Network(getApplicationContext());
+		net.execute("GET_COMMANDS");
+		String rep = net.get();
+	    Commands.buildCommands(rep);
+        
         
         if(!Util.checkInternet(getApplicationContext()))
         		Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
@@ -55,7 +69,13 @@ public class MainActivity extends ActionBarActivity
     	catch(RuntimeException e)
     	{
     		e.printStackTrace();
-    	}
+    	} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         
     }
 

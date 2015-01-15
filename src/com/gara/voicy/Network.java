@@ -2,7 +2,6 @@ package com.gara.voicy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -31,7 +30,7 @@ public class Network extends AsyncTask<String, Void, String>
 		
 		if ( serverAddress == "")
 		{
-			Toast.makeText(context, "ERROR : please set server IP in settings", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "ERROR : please set server address in settings", Toast.LENGTH_LONG).show();
 			return null;
 		}
 		try 
@@ -43,7 +42,7 @@ public class Network extends AsyncTask<String, Void, String>
 			obj = new URL(url);
 			
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			InputStream inp = con.getInputStream(); 
+			//InputStream inp = con.getInputStream(); 
 			// optional default is GET
 			//con.setRequestMethod("GET");
 	 
@@ -89,7 +88,12 @@ public class Network extends AsyncTask<String, Void, String>
 	    }
 	}
 
-
+	 protected void onPostExecute(String result) {
+       
+     }
+	 
+	 
+	 
 
 	
 

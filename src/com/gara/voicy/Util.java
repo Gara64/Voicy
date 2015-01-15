@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -39,7 +40,7 @@ public class Util {
 		Socket socket = null;
 		boolean reachable = false;
 		try {
-		    socket = new Socket(serverAddress, 80);
+		    socket = new Socket("http://" + serverAddress, 80);
 		    reachable = true;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -58,5 +59,16 @@ public class Util {
 		
 	}
 	
-	
+	public static void showDialog(Activity activity, String title, String content)
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+
+		alertDialog.setTitle(title);
+		alertDialog.setMessage(content);
+		// Setting Icon to Dialog
+		//alertDialog.setIcon(R.drawable.tick);
+		
+		// Showing Alert Message
+		alertDialog.show();
+	}
 }
