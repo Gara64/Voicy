@@ -1321,8 +1321,8 @@ containing a value of this type.
         public static final int always=0x7f05001d;
         public static final int beginning=0x7f050023;
         public static final int bottom=0x7f050005;
-        public static final int btnGetCommands=0x7f05004f;
-        public static final int btnRecord=0x7f05004e;
+        public static final int btnGetCommands=0x7f05004e;
+        public static final int btnRecord=0x7f05004f;
         public static final int btnSettingsOk=0x7f050051;
         public static final int center=0x7f05000c;
         public static final int center_horizontal=0x7f05000a;
@@ -1489,10 +1489,12 @@ containing a value of this type.
         public static final int app_name=0x7f0a000d;
         public static final int get_commands=0x7f0a0014;
         public static final int get_settings=0x7f0a0013;
+        public static final int get_texts=0x7f0a0016;
         public static final int hello_world=0x7f0a000e;
         public static final int ok=0x7f0a0012;
         public static final int record=0x7f0a0011;
         public static final int server_ip=0x7f0a0010;
+        public static final int welcome_voicy=0x7f0a0015;
     }
     public static final class style {
         /** 

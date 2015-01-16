@@ -27,10 +27,6 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        
-        
-        
-        
         btnRecord = (Button) findViewById(R.id.btnRecord);
         btnRecord.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
@@ -42,9 +38,9 @@ public class MainActivity extends ActionBarActivity
         btnGetCommands.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 		        Commands.showCommands(activity);	 
-		      
 	        }
 	    });
+                
         
         //read settings file
         String[] settings = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);

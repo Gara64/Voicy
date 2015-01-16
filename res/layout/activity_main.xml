@@ -12,24 +12,26 @@
         android:id="@+id/textServerIP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/btnRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textServerIP"
-        android:layout_marginTop="44dp"
-        android:layout_toRightOf="@+id/textServerIP"
-        android:text="@string/record" />
+        android:text="@string/welcome_voicy" />
 
     <Button
         android:id="@+id/btnGetCommands"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textServerIP"
         android:layout_below="@+id/btnRecord"
-        android:layout_marginTop="49dp"
-        android:layout_toRightOf="@+id/textServerIP"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="15dp"
         android:text="@string/get_commands" />
+
+    <Button
+        android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textServerIP"
+        android:layout_below="@+id/textServerIP"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="55dp"
+        android:text="@string/record" />
 
 </RelativeLayout>

@@ -9,4 +9,6 @@
 	<string name="ok">OK</string>
 	<string name="get_settings">Get settings</string>
 	<string name="get_commands">Get commands</string>
+	<string name="welcome_voicy">Welcome on the Voicy app</string>
+	<string name="get_texts">Get voices orders</string>   
 </resources>
