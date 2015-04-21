@@ -4,6 +4,7 @@ package com.gara.voicy;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -70,5 +71,10 @@ public class Util {
 		
 		// Showing Alert Message
 		alertDialog.show();
+	}
+	
+	public static String[] arrayListToStringArray(ArrayList<?> list)
+	{
+		return list.toArray(new String[list.size()]);
 	}
 }

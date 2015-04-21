@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 public class JsonHelper 
 {
-	//OutputStream out;
 	public static BufferedWriter out;
 	public static BufferedReader in;
 	
+	/* Reads and extracts the settings Json file */
 	public static String[] readSettings(Context context, String fileName) 
 	{
 		JsonReader reader = null;
@@ -66,9 +66,11 @@ public class JsonHelper
 	    return new String[]{ip};
 	}
 	
-	public static Hashtable<String, ArrayList<String>> readCommands(String json)
+	/* Reads and extracts the Commands json file */
+	public static ArrayList<Command> readCommands(String json)
 	{
-		Hashtable<String, ArrayList<String>> hashCmd = new Hashtable<String, ArrayList<String>>();
+		//Hashtable<String, ArrayList<String>> hashCmd = new Hashtable<String, ArrayList<String>>();
+		ArrayList<Command> commands = new ArrayList<Command>();
 		
 		JsonReader reader = new JsonReader(new StringReader(json));
 		String cmd = "";
@@ -86,12 +88,13 @@ public class JsonHelper
 	        		//new block of command
 	        		reader.beginObject();
 	        		txt = new ArrayList<String>();
+	        		String param = null;
 	        		while(reader.hasNext())
 	        		{
 	        			name = reader.nextName();
 		        		if(name.equals("cmd")){
-		        			cmd = reader.nextString();
-		        			Log.d("cmd", cmd);
+		        			//cmd = reader.nextString();
+		        			
 		        		}
 		        		else if(name.equals("text"))
 		        		{
@@ -114,12 +117,13 @@ public class JsonHelper
 		        		}
 		        		else if(name.equals("param"))
 		        		{
-		        			String param = reader.nextString();
+		        			param = reader.nextString();
 		        			//Log.d("param", name + " - " + re)
 		        		}
 	        		}//end while cmd block
 	        		reader.endObject();
-	        		hashCmd.put(cmd, txt);
+	        		//hashCmd.put(cmd, txt);
+	        		commands.add(new Command(cmd, txt, param));
 	        	}//end while array commands
 	        	reader.endArray();
 	        }//end while global object
@@ -131,14 +135,13 @@ public class JsonHelper
 			e.printStackTrace();
 		}
 		
-		return hashCmd;
+		return commands;
 		
 	}
 	
+	/* Save the new settings into the Json file */
 	public static void writeSettings(String[] settings, Context context, String fileName)
 	{
-		
-		
 		JsonWriter writer;
 		try 
 		{

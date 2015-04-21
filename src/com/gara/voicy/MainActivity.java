@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity
         btnGetCommands = (Button) findViewById(R.id.btnGetCommands);
         btnGetCommands.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
-		        Commands.showCommands(activity);	 
+		        CommandsFactory.showCommands(activity);	 
 	        }
 	    });
                 
@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity
 	    Network net = new Network(getApplicationContext());
 		net.execute("GET_COMMANDS");
 		String rep = net.get();
-	    Commands.buildCommands(rep);
+	    CommandsFactory.buildCommands(rep);
         
         
         if(!Util.checkInternet(getApplicationContext()))

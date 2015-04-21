@@ -7,17 +7,20 @@ import java.util.Set;
 
 import android.app.Activity;
 
-public class Commands 
+
+
+public class CommandsFactory 
 {
-	public static Hashtable<String, ArrayList<String>> hashCmd;
-	static ArrayList<String> allVoices;
-	static ArrayList<String> allCommands;
+	public static ArrayList<Command> commands;
+	//static ArrayList<String> allVoices;
+	//static ArrayList<String> allCommands;
 	
+	/* Read the Json file containing commands and build the ArrayLists */
 	public static void buildCommands(String json)
 	{
-		hashCmd = JsonHelper.readCommands(json);
+		commands = JsonHelper.readCommands(json);
 		
-		allCommands = new ArrayList<String>();
+		/*allCommands = new ArrayList<String>();
 		allVoices = new ArrayList<String>();
 		
 		Set<String> cmds = hashCmd.keySet();
@@ -30,15 +33,33 @@ public class Commands
 			for(String s : txts)
 				allVoices.add(s);
 		}
+		*/
 	}
 	
+	/* Display the commands */
 	public static void showCommands(Activity activity)
 	{
-		if( hashCmd == null )
+		if( commands == null )
 			Util.showDialog(activity, "Commands", "No command available :/");
 		else
 		{
-			Set<String> cmds = hashCmd.keySet();
+			String str = "";
+			for(Command cmd : commands)
+			{
+				String voicesForCmd = "\t";
+				for (int i=0;i<cmd.voiceOrders.length; i++)
+				{
+					if( i < cmd.voiceOrders.length - 1)
+						voicesForCmd += cmd.voiceOrders[i] + "\n\t";
+					else
+						voicesForCmd += cmd.voiceOrders[i] + "\n";
+				}
+				
+				str += cmd.command + " : \n";
+				str += voicesForCmd;
+			}
+			
+			/*Set<String> cmds = hashCmd.keySet();
 			Iterator<String> it = cmds.iterator();
 			String str = new String();
 			while(it.hasNext())
@@ -56,7 +77,7 @@ public class Commands
 					
 				str += cmd + " : \n";
 				str += voicesForCmd;
-			}
+			}*/
 			Util.showDialog(activity, "Commands", str);
 		}
 	}
