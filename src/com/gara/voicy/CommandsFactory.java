@@ -1,9 +1,6 @@
 package com.gara.voicy;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Set;
 
 import android.app.Activity;
 
@@ -46,18 +43,11 @@ public class CommandsFactory
 			String str = "";
 			for(Command cmd : commands)
 			{
-				String voicesForCmd = "\t";
-				for (int i=0;i<cmd.voiceOrders.length; i++)
-				{
-					if( i < cmd.voiceOrders.length - 1)
-						voicesForCmd += cmd.voiceOrders[i] + "\n\t";
-					else
-						voicesForCmd += cmd.voiceOrders[i] + "\n";
-				}
-				
 				str += cmd.command + " : \n";
-				str += voicesForCmd;
+				str += displayVoiceOrders(cmd);
 			}
+			
+			Util.showDialog(activity, "Commands", str);
 			
 			/*Set<String> cmds = hashCmd.keySet();
 			Iterator<String> it = cmds.iterator();
@@ -78,13 +68,39 @@ public class CommandsFactory
 				str += cmd + " : \n";
 				str += voicesForCmd;
 			}*/
-			Util.showDialog(activity, "Commands", str);
+			
 		}
 	}
 
-	public static void getCommandByVoice(String voice)
+	/* Find the Command associated to the voice record in param */
+	public static Command getCommandFromVoice(String voiceRecord)
 	{
+		if( commands == null )
+			return null;
 		
+		for(Command cmd: commands)
+		{
+			cmd.isVoiceMatching(voiceRecord);
+		}
+		
+		return null;
+		
+	}
+	
+	/* This utility function is used to display correctly the voice orders for
+	 * each Command 
+	 */
+	static String displayVoiceOrders(Command cmd)
+	{
+		String voicesForCmd = "\t";
+		for (int i=0;i<cmd.voiceOrders.length; i++)
+		{
+			if( i < cmd.voiceOrders.length - 1)
+				voicesForCmd += cmd.voiceOrders[i] + "\n\t";
+			else
+				voicesForCmd += cmd.voiceOrders[i] + "\n";
+		}
+		return voicesForCmd;
 	}
 	
 	

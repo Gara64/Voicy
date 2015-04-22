@@ -28,6 +28,19 @@
         <requestFocus />
     </EditText>
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "@string/voice_relevance"/>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+
     <Button
         android:id="@+id/btnSettingsOk"
         android:layout_width="96dp"

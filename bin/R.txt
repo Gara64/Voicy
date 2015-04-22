@@ -261,7 +261,7 @@ int id action_context_bar 0x7f05002e
 int id action_menu_divider 0x7f050027
 int id action_menu_presenter 0x7f050028
 int id action_mode_close_button 0x7f050035
-int id action_settings 0x7f050052
+int id action_settings 0x7f050054
 int id activity_chooser_view_content 0x7f050036
 int id alignBounds 0x7f050002
 int id alignMargins 0x7f050003
@@ -270,7 +270,7 @@ int id beginning 0x7f050023
 int id bottom 0x7f050005
 int id btnGetCommands 0x7f05004e
 int id btnRecord 0x7f05004f
-int id btnSettingsOk 0x7f050051
+int id btnSettingsOk 0x7f050053
 int id center 0x7f05000c
 int id center_horizontal 0x7f05000a
 int id center_vertical 0x7f050008
@@ -282,6 +282,7 @@ int id default_activity_button 0x7f050039
 int id dialog 0x7f050020
 int id disableHome 0x7f05001a
 int id dropdown 0x7f050021
+int id editText1 0x7f050052
 int id editTextIP 0x7f050050
 int id edit_query 0x7f050041
 int id end 0x7f050011
@@ -326,6 +327,7 @@ int id start 0x7f050010
 int id submit_area 0x7f05004a
 int id tabMode 0x7f050014
 int id textServerIP 0x7f05004d
+int id textView1 0x7f050051
 int id title 0x7f05003c
 int id top 0x7f050004
 int id top_action_bar 0x7f050031
@@ -377,14 +379,15 @@ int string abc_shareactionprovider_share_with 0x7f0a000c
 int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a000f
 int string app_name 0x7f0a000d
-int string get_commands 0x7f0a0014
-int string get_settings 0x7f0a0013
-int string get_texts 0x7f0a0016
+int string get_commands 0x7f0a0013
+int string get_settings 0x7f0a0012
+int string get_texts 0x7f0a0015
 int string hello_world 0x7f0a000e
-int string ok 0x7f0a0012
-int string record 0x7f0a0011
-int string server_ip 0x7f0a0010
-int string welcome_voicy 0x7f0a0015
+int string ok 0x7f0a0011
+int string record 0x7f0a0010
+int string server_ip 0x7f0a0017
+int string voice_relevance 0x7f0a0016
+int string welcome_voicy 0x7f0a0014
 int style AppBaseTheme 0x7f0b008b
 int style AppTheme 0x7f0b008c
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0b0063

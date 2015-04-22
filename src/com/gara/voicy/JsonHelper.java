@@ -93,7 +93,7 @@ public class JsonHelper
 	        		{
 	        			name = reader.nextName();
 		        		if(name.equals("cmd")){
-		        			//cmd = reader.nextString();
+		        			cmd = reader.nextString();
 		        			
 		        		}
 		        		else if(name.equals("text"))

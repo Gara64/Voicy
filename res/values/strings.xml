@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Activity main -->
     <string name="app_name">Voicy</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-	<string name="server_ip">Server IP : </string>
 	<string name="record">Record !</string>
-	<string name="ok">OK</string>
 	<string name="get_settings">Get settings</string>
 	<string name="get_commands">Get commands</string>
 	<string name="welcome_voicy">Welcome on the Voicy app</string>
 	<string name="get_texts">Get voices orders</string>   
+	
+	<!--  Settings -->
+	<string name="voice_relevance">Min. relevance for the voice record (%)</string>   
+	<string name="server_ip">Server IP : </string>
+	<string name="ok">Save settings</string>
+	
 </resources>

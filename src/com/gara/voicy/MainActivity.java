@@ -14,104 +14,104 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
-public class MainActivity extends ActionBarActivity 
-{
+public class MainActivity extends ActionBarActivity {
 	Button btnRecord, btnGetCommands;
 	Activity activity = this;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-    	try
-    	{
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        btnRecord = (Button) findViewById(R.id.btnRecord);
-        btnRecord.setOnClickListener(new View.OnClickListener() {
-	        public void onClick(View v) {
-	        	SpeechRecognitionHelper.run(activity);
-	        }
-	    });
-        
-        btnGetCommands = (Button) findViewById(R.id.btnGetCommands);
-        btnGetCommands.setOnClickListener(new View.OnClickListener() {
-	        public void onClick(View v) {
-		        CommandsFactory.showCommands(activity);	 
-	        }
-	    });
-                
-        
-        //read settings file
-        String[] settings = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
-        if( settings.length == 0 )
-        	Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
-        else
-        	Network.serverAddress = settings[0];
-        
-        
-        //get the commands
-	    Network net = new Network(getApplicationContext());
-		net.execute("GET_COMMANDS");
-		String rep = net.get();
-	    CommandsFactory.buildCommands(rep);
-        
-        
-        if(!Util.checkInternet(getApplicationContext()))
-        		Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
-        
-    	}
-    	
-    	catch(RuntimeException e)
-    	{
-    		e.printStackTrace();
-    	} catch (InterruptedException e1) {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		try {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_main);
+
+			btnRecord = (Button) findViewById(R.id.btnRecord);
+			btnRecord.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					SpeechRecognitionHelper.run(activity);
+				}
+			});
+
+			btnGetCommands = (Button) findViewById(R.id.btnGetCommands);
+			btnGetCommands.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					CommandsFactory.showCommands(activity);
+				}
+			});
+
+			// read settings file
+			String[] settings = JsonHelper.readSettings(
+					getApplicationContext(), Constants.JSON_FILE);
+			if (settings.length == 0)
+				Util.switchActivity(this, getApplicationContext(),
+						SettingsActivity.class);
+			else
+				Network.serverAddress = settings[0];
+
+			/* Checks that internet is activated */
+			if (!Util.checkInternet(getApplicationContext()))
+				Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
+			else
+			{
+				/* Get the commands : request the Json file */
+				Network net = new Network(getApplicationContext());
+				net.execute("GET_COMMANDS");
+				String rep = net.get();
+				CommandsFactory.buildCommands(rep);
+			}
+
+		}
+
+		catch (RuntimeException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ExecutionException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    
- // Activity Results handler
-    public void onActivityResult(int requestCode, int resultCode, Intent data) 
-    {
-        // if it’s speech recognition results and process finished ok
-        if (requestCode == Constants.VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-            // receiving a result in string array
-            // there can be some strings because sometimes speech recognizing inaccurate
-            // more relevant results in the beginning of the list
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			Util.switchActivity(this, getApplicationContext(),
+					SettingsActivity.class);
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-            // in “matches” array we holding a results... let’s show the most relevant
-            if (matches.size() > 0)
-            	Toast.makeText(this, matches.get(0).toString(), Toast.LENGTH_LONG).show();
-        }
+	/* Activity Results handler : called after recording the voice */
+	public void onActivityResult(int requestCode, int resultCode, Intent data) 
+	{
+		if (requestCode == Constants.VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK)
+		{
+			/* The recording voice is received as an ArrayList, containing several results.
+			 * The more relevant one is in position 0 : we keep this one */
+			ArrayList<String> matches = data
+					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-    
-    
+			if (matches.size() > 0){
+				//TODO : change this to display a label instead of a Toast
+				Toast.makeText(this, matches.get(0).toString(),	Toast.LENGTH_LONG).show();
+				//TODO : treat the record
+				CommandsFactory.getCommandFromVoice( matches.get(0).toString());
+			}
+		}
+
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
 }
