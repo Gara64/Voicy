@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 public class Network extends AsyncTask<String, Void, String> 
 {
-	public static String serverAddress = "";
 	Context context;
 	
 	public Network(Context context)
@@ -28,14 +27,14 @@ public class Network extends AsyncTask<String, Void, String>
 		
 		StringBuffer response = new StringBuffer();;
 		
-		if ( serverAddress == "")
+		if ( Settings.SERVER_ADDRESS == "" )
 		{
-			Toast.makeText(context, "ERROR : please set server address in settings", Toast.LENGTH_LONG).show();
+			//Toast.makeText(context, "ERROR : please set server address in settings", Toast.LENGTH_LONG).show();
 			return null;
 		}
 		try 
 		{
-			String url = "http://" + serverAddress + "/" + Constants.SERVER_FILE + 
+			String url = "http://" + Settings.SERVER_ADDRESS + "/" + Constants.SERVER_FILE + 
 					"?action=" + params[0];
 			Log.d("url", url);
 			URL obj;
@@ -92,8 +91,7 @@ public class Network extends AsyncTask<String, Void, String>
        
      }
 	 
-	 
-	 
+
 
 	
 

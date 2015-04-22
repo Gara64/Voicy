@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -76,5 +77,35 @@ public class Util {
 	public static String[] arrayListToStringArray(ArrayList<?> list)
 	{
 		return list.toArray(new String[list.size()]);
+	}
+	
+	/* Sends a command to the server */
+	public static String sendCommand(Network net, String cmd)
+	{
+		String ret = "";
+		try 
+		{
+			net.execute(cmd);
+			ret = net.get();
+		
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public static int convertPercentToDistance(int percent)
+	{
+		/* 100% => 0
+		 * 75% => 5
+		 * 50% => 10
+		 */
+		
+		return (1 / percent * 100) / 5;
+		//(percent / 5) 
 	}
 }

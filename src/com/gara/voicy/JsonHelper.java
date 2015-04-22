@@ -28,7 +28,7 @@ public class JsonHelper
 	public static String[] readSettings(Context context, String fileName) 
 	{
 		JsonReader reader = null;
-		String ip = "";
+		String ip = "", relevance = "";
 	    try 
 	    {
 	    	in  = new BufferedReader(new FileReader(new 
@@ -48,6 +48,8 @@ public class JsonHelper
 	        		  //Log.d("reader", " - : " + name);
 	        		  if (name.equals("server_ip"))
 	        			  ip = reader.nextString();
+	        		  else if (name.equals("voice_relevance"))
+	        			  relevance = reader.nextString();
 	        	  }
 	        	  reader.endObject();
 	          }
@@ -63,7 +65,7 @@ public class JsonHelper
 			e.printStackTrace();
 		}
 	    
-	    return new String[]{ip};
+	    return new String[]{ip, relevance};
 	}
 	
 	/* Reads and extracts the Commands json file */
@@ -156,6 +158,7 @@ public class JsonHelper
 		    writer.name("settings");
 		    writer.beginObject();
 		    writer.name("server_ip").value(settings[0]);
+		    writer.name("voice_relevance").value(settings[1]);
 		    writer.endObject();
 		    writer.endObject();
 		    

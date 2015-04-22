@@ -2,7 +2,6 @@ package com.gara.voicy;
 
 import java.util.ArrayList;
 
-import android.util.Log;
 
 /*
  * The Commands correspond in a single order, e.g. PLAY_MUSIC
@@ -33,8 +32,8 @@ public class Command
 		{
 			//perfect match => distance = 0
 			int distance = LevenshteinDistance.computeLevenshteinDistance(voiceRecord, voiceOrders[i]);			
-			Log.d("distance", String.valueOf(distance));
-			if( distance <= Constants.VOICE_DISTANCE_MAX )
+			
+			if( distance <= Settings.VOICE_DISTANCE_MAX )
 				return true;
 		}
 		return false;

@@ -80,7 +80,8 @@ public class CommandsFactory
 		
 		for(Command cmd: commands)
 		{
-			cmd.isVoiceMatching(voiceRecord);
+			if( cmd.isVoiceMatching(voiceRecord) )
+				return cmd;
 		}
 		
 		return null;

@@ -1,7 +1,6 @@
 package com.gara.voicy;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 	Button btnRecord, btnGetCommands;
 	Activity activity = this;
+	Network net;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +38,18 @@ public class MainActivity extends ActionBarActivity {
 				}
 			});
 
-			// read settings file
-			String[] settings = JsonHelper.readSettings(
-					getApplicationContext(), Constants.JSON_FILE);
-			if (settings.length == 0)
-				Util.switchActivity(this, getApplicationContext(),
-						SettingsActivity.class);
-			else
-				Network.serverAddress = settings[0];
-
+			/* If no settings found, switch on the setting activity */
+			if(!Settings.getSettings(getApplicationContext()))
+				Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
+			
 			/* Checks that internet is activated */
 			if (!Util.checkInternet(getApplicationContext()))
 				Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
 			else
 			{
-				/* Get the commands : request the Json file */
+				/* Get the commands by requesting the Json file */
 				Network net = new Network(getApplicationContext());
-				net.execute("GET_COMMANDS");
-				String rep = net.get();
+				String rep = Util.sendCommand(net, "GET_COMMANDS");
 				CommandsFactory.buildCommands(rep);
 			}
 
@@ -63,12 +57,6 @@ public class MainActivity extends ActionBarActivity {
 
 		catch (RuntimeException e) {
 			e.printStackTrace();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ExecutionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 
 	}
@@ -103,11 +91,13 @@ public class MainActivity extends ActionBarActivity {
 			ArrayList<String> matches = data
 					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-			if (matches.size() > 0){
+			if (matches.size() > 0)
+			{
+				/* Display the record and send the associated command */
 				//TODO : change this to display a label instead of a Toast
 				Toast.makeText(this, matches.get(0).toString(),	Toast.LENGTH_LONG).show();
-				//TODO : treat the record
-				CommandsFactory.getCommandFromVoice( matches.get(0).toString());
+				Command cmd = CommandsFactory.getCommandFromVoice(matches.get(0).toString());
+				Util.sendCommand(net, cmd.command);
 			}
 		}
 

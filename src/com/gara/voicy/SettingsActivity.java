@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class SettingsActivity extends Activity
 {
 	Button okBtn;
-	EditText eText;
+	EditText editIP, editVoiceRelevance;
 	Activity activity;
 	String ip;
 	
@@ -19,21 +19,25 @@ public class SettingsActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        
         activity = this;
         
-        eText = (EditText) findViewById(R.id.editTextIP);
+        editIP = (EditText) findViewById(R.id.editTextIP);
+        editVoiceRelevance = (EditText) findViewById(R.id.editVoiceRelevance);
         okBtn = (Button) findViewById(R.id.btnSettingsOk);
         
-        if(Network.serverAddress != "")
-        	eText.setText(Network.serverAddress);
+        /* Default values */
+        editIP.setText(Settings.SERVER_ADDRESS);
+        editVoiceRelevance.setText(String.valueOf(Settings.VOICE_DISTANCE_MAX));
         
         okBtn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 	        	JsonHelper.writeSettings(extractSettings(), getApplicationContext(), Constants.JSON_FILE);
 	        	String[] settings = JsonHelper.readSettings(getApplicationContext(), Constants.JSON_FILE);
-	        	Network.serverAddress = settings[0];
-	        	if(!Util.testServerConnectivity(Network.serverAddress))
+	        	Settings.SERVER_ADDRESS = settings[0];
+	        	Settings.VOICE_DISTANCE_MAX = Integer.parseInt(settings[1]);
+	        	
+	        	//TODO : do this check elsewhere
+	        	if(!Util.testServerConnectivity(Settings.SERVER_ADDRESS))
 	        		Toast.makeText(getApplicationContext(), "ERROR : cannot reach server", Toast.LENGTH_LONG).show();
 	        	Util.switchActivity(activity, getApplicationContext(), MainActivity.class);
 	        }
@@ -42,8 +46,9 @@ public class SettingsActivity extends Activity
 	
 	public String[] extractSettings()
 	{
-		String[] settings = new String[1];
-		settings[0] = eText.getText().toString();
+		String[] settings = new String[2];
+		settings[0] = editIP.getText().toString();
+		settings[1] = editVoiceRelevance.getText().toString();
 		return settings;
 	}
 

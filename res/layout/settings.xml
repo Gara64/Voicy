@@ -29,13 +29,13 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textVoiceRelevance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= "@string/voice_relevance"/>
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editVoiceRelevance"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -43,7 +43,7 @@
 
     <Button
         android:id="@+id/btnSettingsOk"
-        android:layout_width="96dp"
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:text="@string/ok" />
 
