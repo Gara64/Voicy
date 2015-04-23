@@ -7,4 +7,5 @@ public class Constants
 	public static final String JSON_FILE = "settings.json";
 	public static final String SERVER_FILE = "yuri.php";
 	
+	
 }

@@ -43,12 +43,12 @@ public class MainActivity extends ActionBarActivity {
 				Util.switchActivity(this, getApplicationContext(), SettingsActivity.class);
 			
 			/* Checks that internet is activated */
-			if (!Util.checkInternet(getApplicationContext()))
+			if (!Network.isNetworkOn(getApplicationContext()))
 				Toast.makeText(this, "WARNING : no internet", Toast.LENGTH_LONG).show();
 			else
 			{
 				/* Get the commands by requesting the Json file */
-				Network net = new Network(getApplicationContext());
+				Network net = new Network();
 				String rep = Util.sendCommand(net, "GET_COMMANDS");
 				CommandsFactory.buildCommands(rep);
 			}

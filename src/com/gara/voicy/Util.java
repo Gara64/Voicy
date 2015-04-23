@@ -23,43 +23,8 @@ public class Util {
     	activity.startActivity(i);
 	}
 	
-	public static boolean checkInternet(Context context)
-	{
-		ConnectivityManager connMgr = (ConnectivityManager) 
-				context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		    
-	    if (networkInfo != null && networkInfo.isConnected()) {
-	    	Log.d("network_test", networkInfo.getExtraInfo());
-	    	return true;
-	    }
-	    else
-	    	return false;
-	    
-	}
-	public static boolean testServerConnectivity(String serverAddress)
-	{
-		Socket socket = null;
-		boolean reachable = false;
-		try {
-		    socket = new Socket("http://" + serverAddress, 80);
-		    reachable = true;
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {            
-		    if (socket != null)
-		    	try { socket.close(); } catch(IOException e) {return reachable;}
-		    else
-		    	return reachable;
-		}
-		
-		return reachable;
-		
-	}
+
+	
 	
 	public static void showDialog(Activity activity, String title, String content)
 	{
@@ -85,7 +50,7 @@ public class Util {
 		String ret = "";
 		try 
 		{
-			net.execute(cmd);
+			net.execute(Settings.SERVER_ADDRESS, cmd);
 			ret = net.get();
 		
 		} catch (InterruptedException e) {

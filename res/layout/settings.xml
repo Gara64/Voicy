@@ -28,6 +28,13 @@
         <requestFocus />
     </EditText>
 
+    <Button
+        android:id="@+id/btnTestConnectivity"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_connectivity" />
+
     <TextView
         android:id="@+id/textVoiceRelevance"
         android:layout_width="wrap_content"

@@ -15,5 +15,6 @@
 	<string name="voice_relevance">Min. relevance for the voice record (0&#8211;20)</string>   
 	<string name="server_ip">Server IP : </string>
 	<string name="ok">Save settings</string>
+	<string name="test_connectivity">Test server connectivity</string>
 	
 </resources>

@@ -1314,7 +1314,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050027;
         public static final int action_menu_presenter=0x7f050028;
         public static final int action_mode_close_button=0x7f050035;
-        public static final int action_settings=0x7f050054;
+        public static final int action_settings=0x7f050055;
         public static final int activity_chooser_view_content=0x7f050036;
         public static final int alignBounds=0x7f050002;
         public static final int alignMargins=0x7f050003;
@@ -1323,7 +1323,8 @@ containing a value of this type.
         public static final int bottom=0x7f050005;
         public static final int btnGetCommands=0x7f05004e;
         public static final int btnRecord=0x7f05004f;
-        public static final int btnSettingsOk=0x7f050053;
+        public static final int btnSettingsOk=0x7f050054;
+        public static final int btnTestConnectivity=0x7f050051;
         public static final int center=0x7f05000c;
         public static final int center_horizontal=0x7f05000a;
         public static final int center_vertical=0x7f050008;
@@ -1336,7 +1337,7 @@ containing a value of this type.
         public static final int disableHome=0x7f05001a;
         public static final int dropdown=0x7f050021;
         public static final int editTextIP=0x7f050050;
-        public static final int editVoiceRelevance=0x7f050052;
+        public static final int editVoiceRelevance=0x7f050053;
         public static final int edit_query=0x7f050041;
         public static final int end=0x7f050011;
         public static final int expand_activities_button=0x7f050037;
@@ -1380,7 +1381,7 @@ containing a value of this type.
         public static final int submit_area=0x7f05004a;
         public static final int tabMode=0x7f050014;
         public static final int textServerIP=0x7f05004d;
-        public static final int textVoiceRelevance=0x7f050051;
+        public static final int textVoiceRelevance=0x7f050052;
         public static final int title=0x7f05003c;
         public static final int top=0x7f050004;
         public static final int top_action_bar=0x7f050031;
@@ -1498,6 +1499,7 @@ containing a value of this type.
         public static final int ok=0x7f0a0017;
         public static final int record=0x7f0a0010;
         public static final int server_ip=0x7f0a0016;
+        public static final int test_connectivity=0x7f0a0018;
         /**   Settings 
          */
         public static final int voice_relevance=0x7f0a0015;

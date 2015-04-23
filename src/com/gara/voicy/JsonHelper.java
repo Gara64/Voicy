@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Hashtable;
-
 
 import android.content.Context;
 import android.util.JsonReader;
