@@ -34,4 +34,38 @@
         android:layout_marginTop="55dp"
         android:text="@string/record" />
 
+    <TextView
+        android:id="@+id/tv_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textServerIP"
+        android:layout_below="@+id/btnGetCommands"
+        android:layout_marginTop="56dp"
+        android:text="@string/voice_record" />
+
+    <TextView
+        android:id="@+id/tv_understood_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_record"
+        android:layout_alignBottom="@+id/tv_record"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/tv_record" />
+
+    <TextView
+        android:id="@+id/tv_command"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_understood_voice"
+        android:text="@string/chosen_command" />
+
+    <TextView
+        android:id="@+id/tv_chosen_command"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_command"
+        android:layout_alignBottom="@+id/tv_command"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/tv_command" />
+
 </RelativeLayout>

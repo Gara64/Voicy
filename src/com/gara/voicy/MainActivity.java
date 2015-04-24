@@ -11,10 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 	Button btnRecord, btnGetCommands;
+	TextView tvUnderstoodVoice, tvChosenCommand;
 	Activity activity = this;
 	Network net;
 
@@ -23,7 +25,10 @@ public class MainActivity extends ActionBarActivity {
 		try {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main);
-
+			
+			tvUnderstoodVoice = (TextView) findViewById(R.id.tv_understood_voice);
+			tvChosenCommand = (TextView) findViewById(R.id.tv_chosen_command);
+			
 			btnRecord = (Button) findViewById(R.id.btnRecord);
 			btnRecord.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
@@ -93,15 +98,28 @@ public class MainActivity extends ActionBarActivity {
 
 			if (matches.size() > 0)
 			{
+				String record = matches.get(0).toString();
 				/* Display the record and send the associated command */
 				//TODO : change this to display a label instead of a Toast
-				Toast.makeText(this, matches.get(0).toString(),	Toast.LENGTH_LONG).show();
-				Command cmd = CommandsFactory.getCommandFromVoice(matches.get(0).toString());
-				Util.sendCommand(net, cmd.command);
+				Toast.makeText(this, record,	Toast.LENGTH_LONG).show();
+				Command cmd = CommandsFactory.getCommandFromVoice(record);
+				if( cmd == null )
+					updateTextView(record, "No command found");
+				else{
+					updateTextView(record, cmd.command);
+					//TODO : send command
+					//Util.sendCommand(net, cmd.command);
+				}
 			}
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	public void updateTextView(String record, String command)
+	{
+		tvUnderstoodVoice.setText(record);
+		tvChosenCommand.setText(command);
 	}
 
 }

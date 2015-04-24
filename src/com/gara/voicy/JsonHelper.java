@@ -43,7 +43,7 @@ public class JsonHelper
 	        	  while( reader.hasNext() )
 	        	  {
 	        		  name = reader.nextName();
-	        		  //Log.d("reader", " - : " + name);
+	        		  
 	        		  if (name.equals("server_ip"))
 	        			  ip = reader.nextString();
 	        		  else if (name.equals("voice_relevance"))
@@ -79,16 +79,19 @@ public class JsonHelper
 		try 
 		{
 			reader.beginObject();
-	        while (reader.hasNext()) 
+	        while (reader.hasNext() ) 
 	        {
 	        	String name = reader.nextName(); //commands
 	        	reader.beginArray(); 
+	        	
 	        	while(reader.hasNext())
 	        	{
 	        		//new block of command
 	        		reader.beginObject();
 	        		txt = new ArrayList<String>();
 	        		String param = null;
+	        		Log.d("reader", name);
+	        		
 	        		while(reader.hasNext())
 	        		{
 	        			name = reader.nextName();
@@ -115,6 +118,7 @@ public class JsonHelper
 		        			else
 		        				txt.add(reader.nextString());
 		        		}
+		        		//TODO: handle this
 		        		else if(name.equals("param"))
 		        		{
 		        			param = reader.nextString();
@@ -122,8 +126,8 @@ public class JsonHelper
 		        		}
 	        		}//end while cmd block
 	        		reader.endObject();
-	        		//hashCmd.put(cmd, txt);
 	        		commands.add(new Command(cmd, txt, param));
+	        		
 	        	}//end while array commands
 	        	reader.endArray();
 	        }//end while global object

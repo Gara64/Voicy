@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
 import java.util.concurrent.ExecutionException;
 
 import android.content.Context;
@@ -95,56 +92,13 @@ public class Network extends AsyncTask<String, Void, String>
 		return response.toString();
 	}
 	
-	
-	public void testURL() throws Exception {
-	    String strUrl = "http://stackoverflow.com/about";
-
-	    try {
-	        URL url = new URL(strUrl);
-	        HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-	        urlConn.connect();
-
-	        //assertEquals(HttpURLConnection.HTTP_OK, urlConn.getResponseCode());
-	    } catch (IOException e) {
-	        System.err.println("Error creating HTTP connection");
-	        e.printStackTrace();
-	        throw e;
-	    }
-	}
 
 	 protected void onPostExecute(String result) {
        
      }
 	 
-	public static boolean testServerConnectivity(String serverAddress)
-	{
-		Socket socket = null;
-		boolean reachable = false;
-		try {
-		    socket = new Socket("http://" + serverAddress, 80);
-		    reachable = true;
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {            
-		    if (socket != null)
-		    	try { 
-		    		socket.close(); 
-		    	} 
-		    	catch(IOException e)
-		    	{
-		    		return reachable;
-		    	}
-		    else
-		    	return reachable;
-		}
-		
-		return reachable;
-	}
-	
+
+	/* Execute a Network task, without any command, to check the server connectivity */
 	public static boolean isServerConnected(String server) 
 	{
 		Network net = new Network();
@@ -169,7 +123,7 @@ public class Network extends AsyncTask<String, Void, String>
 			return true;
 	}
 	
-
+	/* Checks the phone network */
 	public static boolean isNetworkOn(Context context)
 	{
 		ConnectivityManager connMgr = (ConnectivityManager) 

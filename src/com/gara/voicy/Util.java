@@ -1,9 +1,6 @@
 package com.gara.voicy;
 
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -11,11 +8,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.util.Log;
 
-public class Util {
+public class Util 
+{
 	
 	public static void switchActivity(Activity activity, Context context, Class<?> cls)
 	{
