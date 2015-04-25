@@ -53,9 +53,11 @@ public class MainActivity extends ActionBarActivity {
 			else
 			{
 				/* Get the commands by requesting the Json file */
-				Network net = new Network();
-				String rep = Util.sendCommand(net, "GET_COMMANDS");
-				CommandsFactory.buildCommands(rep);
+				String rep = Util.sendCommand("GET_COMMANDS");
+				if( rep.isEmpty() )
+					Toast.makeText(this, "WARNING : no command found", Toast.LENGTH_LONG).show();
+				else
+					CommandsFactory.buildCommands(rep);
 			}
 
 		}

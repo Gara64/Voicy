@@ -40,8 +40,9 @@ public class Util
 	}
 	
 	/* Sends a command to the server */
-	public static String sendCommand(Network net, String cmd)
+	public static String sendCommand( String cmd )
 	{
+		Network net = new Network();
 		String ret = "";
 		try 
 		{
